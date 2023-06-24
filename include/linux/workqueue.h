@@ -203,6 +203,12 @@ static inline unsigned int work_static(struct work_struct *work) { return 0; }
 		__INIT_WORK((_work), (_func), 1);		\
 	} while (0)
 
+#define INIT_DELAYED_WORK_DEFERRABLE(_work, _func)		\
+	do {							\
+		INIT_WORK(&(_work)->work, (_func));		\
+		init_timer_deferrable(&(_work)->timer);		\
+	} while (0)
+
 #define INIT_DELAYED_WORK(_work, _func)				\
 	do {							\
 		INIT_WORK(&(_work)->work, (_func));		\
